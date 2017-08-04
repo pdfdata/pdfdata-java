@@ -30,7 +30,7 @@ import static io.pdfdata.Util.*;
  * @publicapi
  */
 public class ProcsRequest extends Request {
-    private static final String base = "/procs";
+    private static final String base = "procs";
     private static final TypeReference<Proc> TYPEREF = new TypeReference<Proc>() {};
     private static final TypeReference<List<Proc>> TYPEREF_LIST =
             new TypeReference<List<Proc>> () {};

@@ -20,7 +20,7 @@ import static io.pdfdata.Network.Method.*;
  * @publicapi
  */
 public class DocumentsRequest extends Request {
-    private static final String base = "/documents";
+    private static final String base = "documents";
     private static final TypeReference<Document> TYPEREF = new TypeReference<Document>() {};
     private static final TypeReference<List<Document>> TYPEREF_LIST =
             new TypeReference<List<Document>> () {};
