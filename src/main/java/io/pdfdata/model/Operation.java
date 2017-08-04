@@ -21,7 +21,8 @@ import java.util.Map;
         @JsonSubTypes.Type(value = XMPMetadata.class, name = "xmp-metadata"),
         @JsonSubTypes.Type(value = Images.class, name = "images"),
         @JsonSubTypes.Type(value = Text.class, name = "text"),
-        @JsonSubTypes.Type(value = Attachments.class, name = "attachments")})
+        @JsonSubTypes.Type(value = Attachments.class, name = "attachments"),
+        @JsonSubTypes.Type(value = PageTemplates.class, name = "page-templates")})
 public class Operation extends Entity {
     private String op;
 
@@ -58,7 +59,8 @@ public class Operation extends Entity {
             @JsonSubTypes.Type(value = XMPMetadata.Result.class, name = "xmp-metadata"),
             @JsonSubTypes.Type(value = Images.Result.class, name = "images"),
             @JsonSubTypes.Type(value = Text.Result.class, name = "text"),
-            @JsonSubTypes.Type(value = Attachments.Result.class, name = "attachments")})
+            @JsonSubTypes.Type(value = Attachments.Result.class, name = "attachments"),
+            @JsonSubTypes.Type(value = PageTemplates.Result.class, name = "page-templates")})
     public static class Result extends Entity {
         private static Map<String, AResource> EMPTY_RESOURCES =
                 Collections.unmodifiableMap(new HashMap<>());

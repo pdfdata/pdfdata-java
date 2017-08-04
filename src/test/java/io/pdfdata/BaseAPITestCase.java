@@ -2,9 +2,6 @@ package io.pdfdata;
 
 import junit.framework.TestCase;
 
-/**
- * Created by chas on 8/2/2017.
- */
 public class BaseAPITestCase extends TestCase {
     protected final API pdfdata = configureAPI();
 

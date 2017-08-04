@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.util.List;
 
 /**
- * Created by chas on 8/3/2017.
+ * @publicapi
  */
 public class Attachments extends Operation {
     public Attachments () {

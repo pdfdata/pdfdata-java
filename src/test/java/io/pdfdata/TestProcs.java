@@ -13,8 +13,8 @@ import java.util.*;
 
 public class TestProcs extends BaseAPITestCase {
 
-    public void setUp() throws IOException, InterruptedException {
-        new TestDocuments().setUp(0);
+    public void setUp() {
+        TestDocuments.DOCUMENTS.size();
     }
 
     public void testOperationDeserializationPolymorphism () throws IOException {

@@ -5,9 +5,6 @@ import junit.framework.TestCase;
 
 import java.io.IOException;
 
-/**
- * Created by chas on 7/26/2017.
- */
 public class TestInfo extends BaseAPITestCase {
 
     public void testInfo () throws IOException {

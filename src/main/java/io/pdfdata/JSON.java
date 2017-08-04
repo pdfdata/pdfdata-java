@@ -1,5 +1,6 @@
 package io.pdfdata;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -7,10 +8,8 @@ import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.databind.deser.BeanDeserializerModifier;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.fasterxml.jackson.databind.module.SimpleModule;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.databind.node.TreeTraversingParser;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
-import io.pdfdata.model.Dimensions;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -19,8 +18,6 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
-import java.util.Map;
-import java.util.Scanner;
 
 /**
  * @nodoc
@@ -49,6 +46,7 @@ public class JSON {
 
     private static ObjectMapper configureMapper (ObjectMapper mapper) {
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
         SimpleModule m = new SimpleModule();
         // support for instants w/o the additional dependency
         m.addSerializer(new InstantSerializer());
@@ -98,11 +96,11 @@ public class JSON {
     }
 
     public <T> T from(InputStream is, TypeReference<T> resultType) throws IOException {
-        return from(inputStreamToString(is), resultType);
+        return from(Util.readString(is), resultType);
     }
 
     public <T> T from(InputStream is, Class<T> cls) throws IOException {
-        return from(inputStreamToString(is), cls);
+        return from(Util.readString(is), cls);
     }
 
     public <T> T from(String data, Class<T> cls) throws IOException {
@@ -120,10 +118,9 @@ public class JSON {
         return reader.readValue(new TreeTraversingParser(responseBody, reader), resultType);
     }
 
-    private static String inputStreamToString(InputStream input) throws IOException {
-        try (InputStream is = input) {
-            return new Scanner(is, Network.CHARSET_NAME).useDelimiter("\\A").next();
-        }
+    public <T> T from(JsonNode responseBody, Class<T> resultType) throws IOException {
+        startMapping();
+        return reader.readValue(new TreeTraversingParser(responseBody, reader), resultType);
     }
 
 

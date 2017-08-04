@@ -20,9 +20,6 @@ import static java.util.Collections.*;
 
 import static io.pdfdata.JSON.parseDate;
 
-/**
- * Created by chas on 8/2/2017.
- */
 public class TestResponseMapping extends BaseAPITestCase {
     private <T> T slurpResponse (String jsonPath, Class<T> cls) throws IOException {
         byte[] json = Files.readAllBytes(Paths.get("src/test/resources/responses", jsonPath));

@@ -44,4 +44,10 @@ public class Util {
     public static byte[] readBytes(InputStream in) throws IOException {
         return IOUtils.readFully(in, -1, false);
     }
+
+    public static String readString(InputStream input) throws IOException {
+        try (InputStream is = input) {
+            return new Scanner(is, Network.CHARSET_NAME).useDelimiter("\\A").next();
+        }
+    }
 }

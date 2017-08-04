@@ -1,5 +1,6 @@
 package io.pdfdata.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 /**
@@ -11,4 +12,13 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 public class Page extends Entity {
     private int pagenum;
     private Dimensions dimensions;
+
+    @JsonProperty("pagenum")
+    public int getPageNumber () {
+        return pagenum;
+    }
+
+    public Dimensions getDimensions() {
+        return dimensions;
+    }
 }

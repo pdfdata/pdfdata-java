@@ -49,33 +49,36 @@ public class TestDocuments extends BaseAPITestCase {
         assertTrue(d.getPageCount() > 0);
     }
 
-    public void setUp () throws IOException, InterruptedException {
-        setUp(1500);
-    }
+    static {
+        try {
+            API pdfdata = new API();
+            File f = DOCUMENTS.values().iterator().next();
+            List<Document> dl = pdfdata.documents().upload(f);
 
-    public void setUp (long delay) throws IOException, InterruptedException {
-        File f = DOCUMENTS.values().iterator().next();
-        List<Document> dl = pdfdata.documents().upload(f);
+            assertEquals(1, dl.size());
+            Document d = dl.get(0);
 
-        assertEquals(1, dl.size());
-        Document d = dl.get(0);
+            Set<String> tags = new HashSet<String>() {{
+                add("acquired:" + LocalDate.now(ZoneId.of("UTC")));
+            }};
+            checkDocument(d, DOCUMENTS.get(d.getFilename()), tags);
 
-        Set<String> tags = new HashSet<String>() {{
-           add("acquired:" + LocalDate.now(ZoneId.of("UTC")));
-        }};
-        checkDocument(d, DOCUMENTS.get(d.getFilename()), tags);
+            Thread.sleep(1500);
 
-        Thread.sleep(delay);
+            Set<File> files = new HashSet<>(DOCUMENTS.values());
+            files.remove(f);
 
-        Set<File> files = new HashSet<>(DOCUMENTS.values());
-        files.remove(f);
+            tags.add("some_tag");
+            tags.add("other_tag");
 
-        tags.add("some_tag");
-        tags.add("other_tag");
-
-        dl = pdfdata.documents().upload(tags, files);
-        for (Document d2 : dl) {
-            checkDocument(d2, DOCUMENTS.get(d2.getFilename()), tags);
+            dl = pdfdata.documents().upload(tags, files);
+            for (Document d2 : dl) {
+                checkDocument(d2, DOCUMENTS.get(d2.getFilename()), tags);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
         }
     }
 
