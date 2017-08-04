@@ -1,6 +1,9 @@
 language: java
 dist: trusty
 script: mvn -B test
+cache:
+  directories:
+    - $HOME/.m2
 jdk:
   - oraclejdk8
   - openjdk8
