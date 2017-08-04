@@ -104,6 +104,16 @@ public class API {
      * API endpoint.
      */
     public API (String apiKey, URL endpoint) {
+        // api.pdfdata.io/v1 is bad, /v1/ is good
+        if (!endpoint.getPath().endsWith("/")) {
+            try {
+                endpoint = new URL(endpoint.toString() + "/");
+            } catch (MalformedURLException e) {
+                // really shouldn't be possible
+                throw new RuntimeException(e);
+            }
+        }
+
         this.apiKey = apiKey;
         this.endpoint = endpoint;
         json = new JSON(this);
