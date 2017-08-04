@@ -93,16 +93,32 @@ io.pdfdata.API pdfdata = new io.pdfdata.API();
 
 #### Running a proc (data extraction process)
 
-Assuming you have a PDF document `test.pdf` in your current directory which
-contains text you'd like to extract:
+Assuming you've created an `API` object as shown above, and have a PDF document
+`test.pdf` in your current directory which contains text you'd like to extract:
 
 ```java
+Proc proc = pdfdata.procs().configure()
+        .withFiles("test.pdf")
+        .withOperations(new io.pdfdata.model.ops.Text())
+        .start();
 ```
 
-This will yield something like this:
+This will start a new proc via the PDFDATA.io service API, applying the `text`
+operation to that source PDF document. When it is finished, you can then access
+the extracted data:
 
 ```java
+// a single proc can apply multiple operations to multiple documents, but in this
+// example, we know we can go straight to the first result from the first document
+
+for (Text.Page page : ((Text.Result)proc.getDocuments().get(0).getResults().get(0)).getData()) {
+    System.out.println("Page " + page.getPageNumber() +
+            " contains text: " + page.getText());
+}
 ```
+
+`Proc` and `Document` entities carry a variety of data not shown above, which will vary depending
+on the data extraction operations you choose to run.
 
 There are many different data extraction operations available; unstructured text
 as is shown above, as well as access to bitmap image data, metadata, and
@@ -128,7 +144,7 @@ Set your environment, e.g.:
 
 ```
 export PDFDATA_APIKEY=<YOUR API KEY>
-export PDFDATA_ENDPOINT=https://localhost:8081/v1
+export PDFDATA_ENDPOINT=https://localhost:8081/v1/
 ```
 
 `PDFDATA_ENDPOINT` defaults to `https://api.pdfdata.io/v1`.
