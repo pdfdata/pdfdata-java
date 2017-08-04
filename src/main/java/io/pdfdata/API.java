@@ -56,7 +56,7 @@ public class API {
     private final static int DEFAULT_READ_TIMEOUT = 80 * 1000;
 
     // TODO load from jar
-    public static String VERSION = "0.9.3";
+    public static String VERSION = "0.9.4";
 
     private final String apiKey;
     private final URL endpoint;
