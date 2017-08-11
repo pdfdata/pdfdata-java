@@ -7,6 +7,10 @@ import io.pdfdata.model.Resource;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
 
 /**
  * This is the entry point to the {@code pdfdata-java} library.
@@ -54,6 +58,8 @@ public class API {
 
     private final static int DEFAULT_CONNECT_TIMEOUT = 30 * 1000;
     private final static int DEFAULT_READ_TIMEOUT = 80 * 1000;
+    static final DateTimeFormatter INSTANT_FORMATTER =
+            DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'");
 
     // TODO load from jar
     public static String VERSION = "0.9.4";
@@ -189,23 +195,14 @@ public class API {
     }
 
     /**
-     * Construct a new {@link URL} without having to deal with the checked exception.
-     * Should be used only in contexts where the call will never fail.
+     * Parses a {@link String} in the format used by the PDFDATA.io API (the ISO 8601 string format
+     * that corresponds to <a href="http://www.ecma-international.org/ecma-262/5.1/#sec-15.9.1.15">
+     *     the standard JavaScript `Date` format</a>).
+     *
+     * @throws java.time.format.DateTimeParseException if {@code s} is not in the expected format
      */
-    private static URL newURL (String url) {
-        try {
-            return new URL(url);
-        } catch (MalformedURLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    private static URL newURL (URL base, String spec) {
-        try {
-            return new URL(base, spec);
-        } catch (MalformedURLException e) {
-            throw new RuntimeException(e);
-        }
+    public static Instant parseDate (String s) {
+        return LocalDateTime.parse(s, INSTANT_FORMATTER).toInstant(ZoneOffset.UTC);
     }
 
     private static String apikey_env () {

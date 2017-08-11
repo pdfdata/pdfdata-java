@@ -15,9 +15,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringWriter;
 import java.time.Instant;
-import java.time.LocalDateTime;
 import java.time.ZoneOffset;
-import java.time.format.DateTimeFormatter;
 
 /**
  * @nodoc
@@ -124,13 +122,6 @@ public class JSON {
     }
 
 
-    private static final DateTimeFormatter INSTANT_FORMATTER =
-            DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'");
-
-    public static Instant parseDate (String s) {
-        return LocalDateTime.parse(s, INSTANT_FORMATTER).toInstant(ZoneOffset.UTC);
-    }
-
     static class InstantSerializer extends StdSerializer<Instant> {
         InstantSerializer() {
             super(Instant.class);
@@ -138,7 +129,7 @@ public class JSON {
 
         public void serialize(Instant t, JsonGenerator jg, SerializerProvider serializerProvider)
                 throws IOException {
-            jg.writeString(INSTANT_FORMATTER.format(t.atOffset(ZoneOffset.UTC)));
+            jg.writeString(API.INSTANT_FORMATTER.format(t.atOffset(ZoneOffset.UTC)));
         }
     }
 
@@ -149,7 +140,7 @@ public class JSON {
 
         public Instant deserialize(JsonParser jsonParser, DeserializationContext deserializationContext)
                 throws IOException {
-            return parseDate(jsonParser.getText());
+            return API.parseDate(jsonParser.getText());
         }
     }
 }

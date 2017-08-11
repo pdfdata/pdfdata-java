@@ -5,7 +5,6 @@ import io.pdfdata.model.*;
 import io.pdfdata.model.ops.Images;
 import io.pdfdata.model.ops.Metadata;
 import io.pdfdata.model.ops.Text;
-import junit.framework.TestCase;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -18,7 +17,7 @@ import static io.pdfdata.model.Proc.Status.COMPLETE;
 import static io.pdfdata.model.Proc.Status.PENDING;
 import static java.util.Collections.*;
 
-import static io.pdfdata.JSON.parseDate;
+import static io.pdfdata.API.parseDate;
 
 public class TestResponseMapping extends BaseAPITestCase {
     private <T> T slurpResponse (String jsonPath, Class<T> cls) throws IOException {

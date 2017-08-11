@@ -4,8 +4,6 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import io.pdfdata.model.*;
 import io.pdfdata.model.ops.*;
-import junit.framework.TestCase;
-import sun.misc.IOUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -42,10 +40,16 @@ public class TestProcs extends BaseAPITestCase {
                 .start();
 
         assertNull(proc.getDocIDs());
-        assertEquals(((Metadata.Result) proc.getDocuments().get(0).getResults().get(0)).getData(),
+
+        Metadata.Result md = ((Metadata.Result) proc.getDocuments().get(0).getResults().get(0));
+        eq(md.getData(),
                 pdfdata.json.from("{\"Title\":\"\",\"Creator\":\"wkhtmltopdf 0.12.2.4\"," +
                                 "\"Producer\":\"Qt 4.8.6\",\"CreationDate\":\"2016-08-12T04:07:16Z\"}",
                         JsonNode.class));
+        eq("", md.getTitle());
+        eq("wkhtmltopdf 0.12.2.4", md.getCreator());
+        eq("Qt 4.8.6", md.getProducer());
+        eq(API.parseDate("2016-08-12T04:07:16Z"), md.getCreationDate());
     }
 
     public void testPending () throws IOException {
