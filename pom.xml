@@ -3,7 +3,7 @@
     <groupId>io.pdfdata</groupId>
     <artifactId>pdfdata-java</artifactId>
     <packaging>jar</packaging>
-    <version>0.9.4</version>
+    <version>0.9.8</version>
     <name>pdfdata-java</name>
     <url>https://github.com/pdfdata/pdfdata-java</url>
     <licenses>
