@@ -34,26 +34,26 @@ build tool's configuration file:
 <dependency>
   <groupId>io.pdfdata</groupId>
   <artifactId>pdfdata-java</artifactId>
-  <version>0.9.8-SNAPSHOT</version>
+  <version>0.9.8</version>
 </dependency>
 ```
 
 #### sbt
 
 ```
-libraryDependencies += "io.pdfdata" % "pdfdata-java" % "0.9.8-SNAPSHOT"
+libraryDependencies += "io.pdfdata" % "pdfdata-java" % "0.9.8"
 ```
 
 #### Gradle
 
 ```
-compile 'io.pdfdata:pdfdata-java:0.9.8-SNAPSHOT'
+compile 'io.pdfdata:pdfdata-java:0.9.8'
 ```
 
 #### Leiningen
 
 ```
-[io.pdfdata/pdfdata-java "0.9.8-SNAPSHOT"]
+[io.pdfdata/pdfdata-java "0.9.8"]
 ```
 
 ### Usage
