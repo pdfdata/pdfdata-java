@@ -14,6 +14,14 @@ public class Metadata extends Operation {
         super("metadata");
     }
 
+    /**
+     * PDF document metadata is an entirely free-form set of key-value pairs.
+     *
+     * This class provides accessors for the well-known metadata elements, but some documents
+     * and workflows require accessing the full set of metadata. {@link #getData()} accomplishes
+     * this by passing along the Jackson representation of the source document's entire
+     * metadata as conveyed by the PDFDATA.io API.
+     */
     public static class Result extends Operation.Result {
         private JsonNode data;
 
@@ -21,14 +29,6 @@ public class Metadata extends Operation {
             super("metadata");
         }
 
-        /**
-         * PDF document metadata is an entirely free-form set of key-value pairs.
-         *
-         * This class provides accessors for the well-known metadata elements, but some documents
-         * and workflows require accessing the full set of metadata. This method accomplishes
-         * this by passing along the Jackson representation of the source document's entire
-         * metadata as conveyed by the PDFDATA.io API.
-         */
         public JsonNode getData() {
             return data;
         }
@@ -63,8 +63,7 @@ public class Metadata extends Operation {
         }
 
         /**
-         *
-         * @throws java.time.format.DateTimeParseException the creation date metadata string is
+         * @throws java.time.format.DateTimeParseException if the creation date metadata string is
          * not in the expected format
          */
         public Instant getCreationDate () {
@@ -73,9 +72,8 @@ public class Metadata extends Operation {
         }
 
         /**
-         *
-         * @throws java.time.format.DateTimeParseException the modification date metadata string is
-         * not in the expected format
+         * @throws java.time.format.DateTimeParseException if the modification date metadata
+         * string is not in the expected format
          */
         public Instant getModificationDate () {
             String v = value("ModDate");

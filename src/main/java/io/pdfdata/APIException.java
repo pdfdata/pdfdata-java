@@ -1,6 +1,7 @@
 package io.pdfdata;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonNode;
 
 import java.io.IOException;
 import java.net.URL;
@@ -16,10 +17,10 @@ public class APIException extends IOException {
     private final URL url;
     private final Map<String, Object> params;
     private final Map<String, String> headers;
-    private final Map<String, Object> errorResponse;
+    private final JsonNode errorResponse;
 
     APIException(String message, int responseStatus, Network.Method verb, URL url,
-                        Map<String, Object> params, Map<String, String> headers) {
+                 Map<String, Object> params, Map<String, String> headers) {
         super(message + " Use the accessors in " +
                 "`io.pdfdata.APIException` (e.g. `.getParams()`) to examine the request that was " +
                 "sent, and thereby identify why the request might have failed.");
@@ -31,8 +32,8 @@ public class APIException extends IOException {
         this.headers = headers;
     }
 
-    APIException(Map<String, Object> response, int responseStatus, Network.Method verb, URL url,
-                        Map<String, Object> params, Map<String, String> headers) throws IOException {
+    APIException(JsonNode response, int responseStatus, Network.Method verb, URL url,
+                 Map<String, Object> params, Map<String, String> headers) throws IOException {
         super("The PDFDATA.io API responded to this request with an error. Use the accessors in " +
                 "`io.pdfdata.APIException` (e.g. `.getErrorResponse()`) for details on the " +
                 "problem.");
@@ -48,8 +49,7 @@ public class APIException extends IOException {
         return responseStatus;
     }
 
-    // TODO this should probably be a JsonNode
-    public Map<String, Object> getErrorResponse () {
+    public JsonNode getErrorResponse () {
         return errorResponse;
     }
 

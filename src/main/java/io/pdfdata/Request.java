@@ -63,7 +63,7 @@ public class Request {
             return conn.getInputStream();
         } else if (contentType.equals("application/json")) {
             InputStream is = conn.getErrorStream();
-            throw new APIException(pdfdata.json.from(is, new TypeReference<Map<String, Object>>(){}),
+            throw new APIException(pdfdata.json.from(is, JsonNode.class),
                     status,
                     GET,
                     url,
@@ -152,7 +152,7 @@ public class Request {
                 return response;
             } else {
                 InputStream is = conn.getErrorStream();
-                throw new APIException(pdfdata.json.from(is, new TypeReference<Map<String, Object>>(){}),
+                throw new APIException(pdfdata.json.from(is, JsonNode.class),
                         status,
                         verb,
                         url,
