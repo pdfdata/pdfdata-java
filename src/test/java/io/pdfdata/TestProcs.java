@@ -33,7 +33,7 @@ public class TestProcs extends BaseAPITestCase {
         assertEquals(opsJSON, pdfdata.json.to(ops));
     }
 
-    public void testOne() throws IOException {
+    public void testOne() throws IOException, InterruptedException {
         Proc proc = pdfdata.procs().configure()
                 .withDocumentIDs("doc_" + TestDocuments.HASHES.get("7BECP84117T.pdf"))
                 .withOperations(new Metadata())
@@ -41,15 +41,29 @@ public class TestProcs extends BaseAPITestCase {
 
         assertNull(proc.getDocIDs());
 
-        Metadata.Result md = ((Metadata.Result) proc.getDocuments().get(0).getResults().get(0));
-        eq(md.getData(),
-                pdfdata.json.from("{\"Title\":\"\",\"Creator\":\"wkhtmltopdf 0.12.2.4\"," +
-                                "\"Producer\":\"Qt 4.8.6\",\"CreationDate\":\"2016-08-12T04:07:16Z\"}",
-                        JsonNode.class));
-        eq("", md.getTitle());
-        eq("wkhtmltopdf 0.12.2.4", md.getCreator());
-        eq("Qt 4.8.6", md.getProducer());
-        eq(API.parseDate("2016-08-12T04:07:16Z"), md.getCreationDate());
+        Proc proc2 = null;
+        for (int wait : Arrays.asList(0, 500, 2000, 5000, 10000)) {
+            Thread.sleep(wait);
+            proc2 = pdfdata.procs().byID(proc.getID());
+            if (proc2.getStatus() == Proc.Status.COMPLETE) break;
+        }
+
+        if (proc2.getStatus() != Proc.Status.COMPLETE) {
+            fail("Timed out waiting for completed proc response");
+        }
+
+        for (Proc p : Arrays.asList(proc, proc2)) {
+            Metadata.Result md = ((Metadata.Result) p.getDocuments().get(0).getResults().get(0));
+            
+            eq(md.getData(),
+                    pdfdata.json.from("{\"Title\":\"\",\"Creator\":\"wkhtmltopdf 0.12.2.4\"," +
+                                    "\"Producer\":\"Qt 4.8.6\",\"CreationDate\":\"2016-08-12T04:07:16Z\"}",
+                            JsonNode.class));
+            eq("", md.getTitle());
+            eq("wkhtmltopdf 0.12.2.4", md.getCreator());
+            eq("Qt 4.8.6", md.getProducer());
+            eq(API.parseDate("2016-08-12T04:07:16Z"), md.getCreationDate());
+        }
     }
 
     public void testPending () throws IOException {
