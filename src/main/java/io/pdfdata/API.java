@@ -62,7 +62,7 @@ public class API {
             DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'");
 
     // TODO load from jar
-    public static String VERSION = "0.9.8-SNAPSHOT";
+    public static String VERSION = "0.9.9";
 
     private final String apiKey;
     private final URL endpoint;
