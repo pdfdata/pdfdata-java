@@ -121,6 +121,10 @@ public class PageTemplates extends Operation {
             this.bounds = bounds;
         }
 
+        public Region (double lx, double by, double rx, double ty) {
+            this(new Bounds(lx, by, rx, ty));
+        }
+
         Region(Bounds bounds, String match, String contains) {
             this.bounds = bounds;
             this.match = match;

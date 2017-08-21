@@ -26,6 +26,9 @@ public class Attachments extends Operation {
             return data;
         }
 
+        /**
+         * @nodoc
+         */
         public void registerResources () throws IOException {
             for (Attachment ch : data) {
                 ch.registerResource(this);

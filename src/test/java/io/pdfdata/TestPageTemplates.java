@@ -13,11 +13,11 @@ public class TestPageTemplates extends BaseAPITestCase {
 
     private PageTemplates W2Config = new PageTemplates()
             .withTemplate("2016 Form W-2", new PageTemplates.Template()
-                    .withRegion("employee-ssn", new PageTemplates.Region(new Bounds(152.64988558352405, 732.4118993134997, 278.5583524027463, 748.713958810067)))
-                    .withRegion("gross-wages", new PageTemplates.Region(new Bounds(331.908466819222, 708.2334096109811, 452.21510297482854, 724.9061784897004)))
-                    .withRegion("W-2", new PageTemplates.Region(new Bounds(56.01830663615563, 428.1418764302055, 103.50114416475976, 453.9176201372997))
+                    .withRegion("employee-ssn", new PageTemplates.Region(152.64988558352405, 732.4118993134997, 278.5583524027463, 748.713958810067))
+                    .withRegion("gross-wages", new PageTemplates.Region(331.908466819222, 708.2334096109811, 452.21510297482854, 724.9061784897004))
+                    .withRegion("W-2", new PageTemplates.Region(56.01830663615563, 428.1418764302055, 103.50114416475976, 453.9176201372997)
                             .containingString("W-2"))
-                    .withRegion("year", new PageTemplates.Region(new Bounds(263.28604118993144, 422.54004576658974, 335.2768878718535, 454.61784897025154))
+                    .withRegion("year", new PageTemplates.Region(263.28604118993144, 422.54004576658974, 335.2768878718535, 454.61784897025154)
                             .matchingRegex("\\d{4}")));
 
     public void testRoundTrip () throws IOException {

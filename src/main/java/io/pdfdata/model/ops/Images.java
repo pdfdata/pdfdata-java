@@ -33,6 +33,9 @@ public class Images extends Operation {
             return data;
         }
 
+        /**
+         * @nodoc
+         */
         public void registerResources () throws IOException {
             for (Images.Page page : data) {
                 for (Image img : page.getImages()) {
