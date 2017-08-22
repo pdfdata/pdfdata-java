@@ -16,7 +16,7 @@ function bump-versions {
 }
 
 bump-versions $CURRENT $NEXT
+git tag $NEXT
 
 bin/deploy.sh
 
-bump-versions $NEXT $NEXT-SNAPSHOT

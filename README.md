@@ -127,11 +127,13 @@ extractions.
 
 ### Learn more
 
-Check out our
-[API documentation](https://www.pdfdata.io/apidoc/), which includes a tonne of
-examples, descriptions of all of the data extraction operations PDFDATA.io
-offers, and details about important things like data retention policies, usage
-limits, and so on.
+[Javadoc for pdfdata-java](http://www.javadoc.io/doc/io.pdfdata/pdfdata-java/)
+is available for all released versions in Maven central. This can be useful for
+learning about the (modest) pdfdata-java object model, but your best PDFDATA.io
+resource will always be our [API documentation](https://www.pdfdata.io/apidoc/),
+which includes a tonne of examples, descriptions of all of the data extraction
+operations PDFDATA.io offers, and details about important things like data
+retention policies, usage limits, and so on.
 
 Questions? We're on Twitter [@pdfdataio](https://twitter.com/pdfdataio), or you
 can [contact us](https://www.pdfdata.io/page/contact) otherwise.
